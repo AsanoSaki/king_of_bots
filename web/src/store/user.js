@@ -38,6 +38,7 @@ export default {
         },
         success(resp) {
           if (resp.result === "success") {
+            localStorage.setItem("jwt_token", resp.jwt_token);  // 将令牌存到LocalStorage中实现登录状态持久化
             context.commit("updateJwtToken", resp.jwt_token);
             data.success(resp);  // 成功后的回调函数
           }
@@ -51,6 +52,7 @@ export default {
       $.ajax({
         url: "http://localhost:3000/user/account/info/",
         type: "GET",
+        async: false,
         headers: {
           // 不是固定的，是官方推荐的写法，Authorization是在我们的后端JwtAuthenticationTokenFilter类中设置的
           Authorization: "Bearer " + context.state.jwt_token,
@@ -70,6 +72,7 @@ export default {
       });
     },
     logout(context) {
+      localStorage.removeItem("jwt_token");
       context.commit("clearState");
     },
   },
