@@ -21,7 +21,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <router-link class="dropdown-item" :to="{ name: 'user_mybots_index' }">我的 Bot</router-link>
+                <router-link class="dropdown-item" :to="{ name: 'user_mybots_index' }">My Bots</router-link>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="#" @click="logout">退出</a></li>

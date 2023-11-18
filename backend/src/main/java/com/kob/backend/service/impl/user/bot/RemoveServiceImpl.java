@@ -34,7 +34,7 @@ public class RemoveServiceImpl implements RemoveService {
             res.put("result", "Bot doesn't exist!");
             return res;
         }
-        if (!bot.getUserID().equals(user.getId())) {
+        if (!bot.getUserId().equals(user.getId())) {
             res.put("result", "No permission to delete the bot!");
             return res;
         }
@@ -42,6 +42,6 @@ public class RemoveServiceImpl implements RemoveService {
         botMapper.deleteById(bot_id);
 
         res.put("result", "success");
-        return null;
+        return res;
     }
 }

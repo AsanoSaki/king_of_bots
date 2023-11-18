@@ -1,6 +1,6 @@
 # 基于SpringBoot的AI BOT对战小游戏
 
-项目前后端分离，后端基于 SpringBoot 2.7.X 框架开发，项目由 Maven 管理，使用 MyBatis-Plus 对接并操作 MySQL 数据库，用户认证机制由 Spring Security 实现，并用 JWT 验证替代传统 Session 验证；前端基于 Vue 3 框架与 Bootstrap 开发，游戏界面使用 Canvas 绘制渲染，通过 Vuex 管理所有组件的状态。
+项目前后端分离，后端基于 SpringBoot 2.7.X 框架开发，项目由 Maven 管理，使用 MyBatis-Plus 对接并操作 MySQL 数据库，用户认证机制由 Spring Security 实现，并用 JWT 验证替代传统 Session 验证；前端基于 Vue 3 框架与 Bootstrap 开发，通过 Vuex 管理所有组件的状态，游戏界面使用 Canvas 绘制渲染，集成了 Vue Ace Editor 代码编辑器供用户编写自己的 Bot 代码。
 
 ## 1. 游戏介绍
 
@@ -9,7 +9,8 @@
  - 随机地图保证玩家出生地不为障碍物，两名玩家必定连通，且不会在同一回合走到同一个格子上。
  - 玩家若下一回合移动的目标位置为障碍物或某条蛇的身体部位则去世。
  - 目前实现两名玩家使用键盘操作移动，分别为 `W/S/A/D` 与 `↑/↓/←/→`。
- - 需要注册并登录后才能进入游戏页面。
+ - 用户可以在 My Bots 页面查看并管理自己的 Bot（包括名称、创建时间、简介、代码等信息），可以创建、修改或删除 Bot。
+ - 需要注册并登录后才能访问各个页面。
 
 ## 2. 环境配置
 

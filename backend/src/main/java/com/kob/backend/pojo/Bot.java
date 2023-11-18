@@ -15,13 +15,13 @@ import java.util.Date;
 public class Bot {
     @TableId(value = "id", type = IdType.AUTO)  // 声明id为自增类型
     private Integer id;
-    private Integer userID;  // 注意驼峰命名
+    private Integer userId;  // 注意驼峰命名，userId之后会被解析为user_id，别写成userID，因为这样会解析成user_i_d
     private String title;
     private String description;
     private String content;
     private Integer rating;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")  // 注意日期格式的设置
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")  // 注意日期格式和时区的设置
     private Date createtime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date modifytime;
 }

@@ -63,7 +63,7 @@ public class UpdateServiceImpl implements UpdateService {
             res.put("result", "Bot doesn't exist!");
             return res;
         }
-        if (!bot.getUserID().equals(user.getId())) {
+        if (!bot.getUserId().equals(user.getId())) {
             res.put("result", "No permission to update the bot!");
             return res;
         }
@@ -72,6 +72,6 @@ public class UpdateServiceImpl implements UpdateService {
         botMapper.updateById(new_bot);
 
         res.put("result", "success");
-        return null;
+        return res;
     }
 }
