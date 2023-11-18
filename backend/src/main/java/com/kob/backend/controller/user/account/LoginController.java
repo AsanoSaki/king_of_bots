@@ -14,9 +14,9 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/user/account/login/")  // 登录采用POST请求，不是明文传输，较为安全
-    public Map<String, String> login(@RequestParam Map<String, String> info) {  // 将POST参数放在一个Map中
-        String username = info.get("username");
-        String password = info.get("password");
+    public Map<String, String> login(@RequestParam Map<String, String> data) {  // 将POST参数放在一个Map中
+        String username = data.get("username");
+        String password = data.get("password");
         return loginService.login(username, password);
     }
 }

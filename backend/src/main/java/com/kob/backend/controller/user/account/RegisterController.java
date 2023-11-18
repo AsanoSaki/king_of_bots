@@ -14,10 +14,10 @@ public class RegisterController {
     private RegisterService registerService;
 
     @PostMapping("/user/account/register/")
-    public Map<String, String> register(@RequestParam Map<String, String> info) {
-        String username = info.get("username");
-        String password = info.get("password");
-        String confirmedPassword = info.get("confirmedPassword");
+    public Map<String, String> register(@RequestParam Map<String, String> data) {
+        String username = data.get("username");
+        String password = data.get("password");
+        String confirmedPassword = data.get("confirmedPassword");
         return registerService.register(username, password, confirmedPassword);
     }
 }
