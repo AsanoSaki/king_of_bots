@@ -26,10 +26,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader("Authorization");  // 从请求头中获取名为"Authorization"的字段
 
-        if (!StringUtils.hasText(token) || !token.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+        if (!StringUtils.hasText(token) || !token.startsWith("Bearer ")) {  // 这个字段应该包含一个以"Bearer "开头的JWT
+            filterChain.doFilter(request, response);  // 将请求传递给下一个过滤器或处理器
             return;
         }
 
@@ -37,13 +37,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         String userid;
         try {
-            Claims claims = JwtUtil.parseJWT(token);
-            userid = claims.getSubject();
+            Claims claims = JwtUtil.parseJWT(token);  // 解析JWT，获取JWT的载荷
+            userid = claims.getSubject();  // 从载荷中获取"subject"，这个"subject"应该是用户ID
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        User user = userMapper.selectById(Integer.parseInt(userid));
+        User user = userMapper.selectById(Integer.parseInt(userid));  // 查询数据库获取用户信息
 
         if (user == null) {
             throw new RuntimeException("用户未登录");
@@ -53,8 +53,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginUser, null, null);
 
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);  // 将其设置到Spring Security的上下文中
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response);  // 将请求传递给下一个过滤器或处理器
     }
 }

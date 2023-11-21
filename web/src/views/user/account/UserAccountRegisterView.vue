@@ -18,32 +18,34 @@
               <div class="card-header text-center">
                 <h1>用户注册</h1>
               </div>
-              <div class="row justify-content-md-center">
-                <div class="col col-md-8">
-                  <!-- @submit后的prevent是阻止掉submit的默认行为，防止组件间的向上或向下传递 -->
-                  <form style="margin: 1rem;" @submit.prevent="register">
-                    <div class="mb-3">
-                      <label for="username" class="form-label">Username</label>
-                      <input v-model="username" type="text" class="form-control" id="username" placeholder="请输入用户名" />
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码" />
-                    </div>
-                    <div class="mb-3">
-                      <label for="confirmedPassword" class="form-label">Confirmed Password</label>
-                      <input v-model="confirmedPassword" type="password" class="form-control" id="confirmedPassword" placeholder="请再次输入密码" />
-                    </div>
-                    <div style="font-size: 1rem; color: red;">
-                      {{ error_message }}
-                    </div>
-                    <div class="success_message" style="font-size: 1rem; color: green;">
-                      {{ success_message }}
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
-                      注册
-                    </button>
-                  </form>
+              <div class="card-body">
+                <div class="row justify-content-md-center">
+                  <div class="col col-md-8">
+                    <!-- @submit后的prevent是阻止掉submit的默认行为，防止组件间的向上或向下传递 -->
+                    <form style="margin: 1rem;" @submit.prevent="register">
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input v-model="username" type="text" class="form-control" id="username" placeholder="请输入用户名" />
+                      </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码" />
+                      </div>
+                      <div class="mb-3">
+                        <label for="confirmedPassword" class="form-label">Confirmed Password</label>
+                        <input v-model="confirmedPassword" type="password" class="form-control" id="confirmedPassword" placeholder="请再次输入密码" />
+                      </div>
+                      <div style="font-size: 1rem; color: red;">
+                        {{ error_message }}
+                      </div>
+                      <div class="success_message" style="font-size: 1rem; color: green;">
+                        {{ success_message }}
+                      </div>
+                      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                        注册
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -57,10 +59,12 @@
 <script>
 import $ from "jquery";
 import { ref } from "vue";
+import { useStore } from "vuex";
 import router from "@/router/index";
 
 export default {
   setup() {
+    const store = useStore();
     let username = ref("");
     let password = ref("");
     let confirmedPassword = ref("");
@@ -81,10 +85,23 @@ export default {
           console.log(resp);
           if (resp.result === "success") {
             success_message.value = "Success! Go to home page after 3 seconds...";
-            $(".success_message").fadeIn();
-            setTimeout(() => {  // 设置3秒定时
+            $(".success_message").fadeIn();  // 渐变出现注册成功的提示
+            setTimeout(() => {  // 2秒后将注册成功的提示渐变消去
               $(".success_message").fadeOut();
-              router.push({ name: "home" });  // 跳转至home页面
+            }, 2000);
+            setTimeout(() => {  // 3秒后自动登录并跳转至首页，此处计时与上面同时进行
+              success_message.value = "";
+              store.dispatch("login", {
+                username: username.value,
+                password: password.value,
+                success() {
+                  store.dispatch("getInfo", {
+                    success() {
+                      router.push({ name: "home" });  // 跳转至home页面
+                    },
+                  });
+                },
+              });
             }, 3000);
           } else {
             error_message.value = resp.result;

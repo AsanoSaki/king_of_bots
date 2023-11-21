@@ -49,7 +49,7 @@ public class UpdateServiceImpl implements UpdateService {
             return res;
         }
         if (content == null || content.isEmpty()) {
-            res.put("result", "The content can't be empty!");
+            res.put("result", "The code can't be empty!");
             return res;
         }
         if (content.length() > 10000) {

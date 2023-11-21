@@ -14,7 +14,7 @@ import java.util.Map;
 public class InfoServiceImpl implements InfoService {
     @Override
     public Map<String, String> getInfo() {
-        // 将用户信息提取到上下文中
+        // 将用户信息从上下文中提取出来
         UsernamePasswordAuthenticationToken authenticationToken =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 

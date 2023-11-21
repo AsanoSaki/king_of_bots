@@ -18,25 +18,27 @@
               <div class="card-header text-center">
                 <h1>用户登录</h1>
               </div>
-              <div class="row justify-content-md-center">
-                <div class="col col-md-8">
-                  <!-- @submit后的prevent是阻止掉submit的默认行为，防止组件间的向上或向下传递 -->
-                  <form style="margin: 1rem;" @submit.prevent="login">
-                    <div class="mb-3">
-                      <label for="username" class="form-label">Username</label>
-                      <input v-model="username" type="text" class="form-control" id="username" placeholder="请输入用户名" />
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码" />
-                    </div>
-                    <div style="font-size: 1rem; color: red;">
-                      {{ error_message }}
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
-                      登录
-                    </button>
-                  </form>
+              <div class="card-body">
+                <div class="row justify-content-md-center">
+                  <div class="col col-md-8">
+                    <!-- @submit后的prevent是阻止掉submit的默认行为，防止组件间的向上或向下传递 -->
+                    <form style="margin: 1rem;" @submit.prevent="login">
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input v-model="username" type="text" class="form-control" id="username" placeholder="请输入用户名" />
+                      </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码" />
+                      </div>
+                      <div style="font-size: 1rem; color: red;">
+                        {{ error_message }}
+                      </div>
+                      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                        登录
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

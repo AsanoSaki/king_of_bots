@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
       },
       error() {
         alert("Invalid token! Please login!");
-        store.dispatch("logout");
+        store.dispatch("logout");  // 清除浏览器内存和LocalStorage中的jwt_token
         next({ name: "user_account_login" });
       },
     });

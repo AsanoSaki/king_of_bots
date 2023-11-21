@@ -51,8 +51,56 @@ npm run serve
  - `jjwt-jackson`：0.12.3
  - `JetBrains Java Annotations`：24.0.1
 
-数据库配置如下：
+### 2.3 数据库配置
+
+数据库使用 MySQL 8.0.35，总体配置如下：
 
  - 数据库：`kob`
  - 用户名：`root`
  - 密码：`saki520`
+
+（1）`user` 表详细信息：
+
+ - `id: int`（非空、自增、主键）
+ - `username: varchar(100)`（非空）
+ - `password: varchar(100)`（非空）
+ - `photo: varchar(1000)`
+
+创建 `user` 表的 SQL 语句如下：
+
+```sql
+CREATE TABLE `kob`.`user` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `username` varchar(100) NOT NULL,
+    `password` varchar(100) NOT NULL,
+    `photo` varchar(1000) NULL,
+    PRIMARY KEY (`id`)
+);
+```
+
+（2）`bot` 表详细信息：
+
+ - `id: int`（非空、自增、主键）
+ - `user_id: int`（非空，注意：在 `pojo` 中需要定义成 `userId`，在 `queryWrapper` 中的名称仍然为 `user_id`）
+ - `title: varchar(100)`
+ - `description: varchar(300)`
+ - `content：varchar(10000)`
+ - `rating: int`（默认值为1500）
+ - `createtime: datetime`（注意：在 `pojo` 中定义日期格式的注解为 `@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")`）
+ - `modifytime: datetime`
+
+创建 `bot` 表的 SQL 语句如下：
+
+```sql
+CREATE TABLE `kob`.`bot` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `user_id` int NOT NULL,
+    `title` varchar(100) NULL,
+    `description` varchar(300) NULL,
+    `content` varchar(10000) NULL,
+    `rating` int NULL DEFAULT 1500,
+    `createtime` datetime NULL,
+    `modifytime` datetime NULL,
+    PRIMARY KEY (`id`)
+);
+```
