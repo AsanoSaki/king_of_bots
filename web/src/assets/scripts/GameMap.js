@@ -3,7 +3,7 @@ import { Wall } from "./Wall";
 import { Snake } from "./Snake";
 
 export class GameMap extends AcGameObject {
-  constructor(ctx, parent) {  // ctx表示画布，parent表示画布的父元素
+  constructor(ctx, parent, store) {  // ctx表示画布，parent表示画布的父元素
     super();
 
     this.ctx = ctx;
@@ -19,6 +19,8 @@ export class GameMap extends AcGameObject {
       new Snake({ id: 0, color: "#4876EC", r: this.rows - 2, c: 1 }, this),
       new Snake({ id: 1, color: "#F94848", r: 1, c: this.cols - 2 }, this),
     ];
+
+    this.store = store;
   }
 
   check_connectivity(g, sx, sy, tx, ty) {  // 用flood fill算法判断两名玩家是否连通
@@ -80,6 +82,18 @@ export class GameMap extends AcGameObject {
     return true;
   }
 
+  create_walls_online() {  // 通过后端生成的数据创建地图
+    const g = this.store.state.pk.game_map;
+
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.cols; c++) {
+        if (g[r][c]) {
+          this.walls.push(new Wall(r, c, this));
+        }
+      }
+    }
+  }
+
   add_listening_events() {
     this.ctx.canvas.focus();  // 使Canvas聚焦
 
@@ -97,10 +111,11 @@ export class GameMap extends AcGameObject {
   }
 
   start() {
-    for (let i = 0; i < 10000; i++) {  // 暴力枚举直至生成合法的地图
-      if (this.create_walls())
-        break;
-    }
+    // for (let i = 0; i < 10000; i++) {
+    //   if (this.create_walls())
+    //     break;
+    // }
+    this.create_walls_online();  // 在线生成地图
     this.add_listening_events();
   }
 

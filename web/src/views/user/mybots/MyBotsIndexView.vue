@@ -10,7 +10,7 @@
             <div class="card">
               <!-- 用户头像与用户名 -->
               <div class="card-body text-center">
-                <img class="img-fluid" :src="$store.state.user.photo" style="width:50%; border-radius: 50%;">
+                <img class="img-fluid" :src="$store.state.user.photo" style="width: 50%; border-radius: 50%;">
                 <div style="font-size: 20px; margin-top: 10px; font-weight: bold;">
                   {{ $store.state.user.username }}
                 </div>
