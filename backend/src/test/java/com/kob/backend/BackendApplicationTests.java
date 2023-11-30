@@ -9,7 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 class BackendApplicationTests {
     @Test
     void contextLoads() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println(passwordEncoder.encode("123"));
+        StringBuilder s = new StringBuilder();
+        s.append(true);
+        s.append(false);
+        System.out.println(s);
     }
 }

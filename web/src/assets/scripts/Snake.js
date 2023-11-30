@@ -56,10 +56,9 @@ export class Snake extends AcGameObject {
       this.cells[i] = JSON.parse(JSON.stringify(this.cells[i - 1]));  // 注意要深层复制一份，还有一个细节是JS的数组越界不会出错
     }
 
-    if (!this.gamemap.check_next_valid(this.next_cell)) {  // 下一步不合法
-      this.status = "die";
-      this.color = "white";
-    }
+    // if (!this.gamemap.check_next_valid(this.next_cell)) {  // 下一步不合法
+    //   this.status = "die";
+    // }
   }
 
   set_direction(d) {  // 由于未来不一定只会从键盘获取输入，因此实现一个接口修改direction
@@ -113,6 +112,10 @@ export class Snake extends AcGameObject {
     const L = this.gamemap.L;
     const ctx = this.gamemap.ctx;
     ctx.fillStyle = this.color;
+    if (this.status === "die") {
+      ctx.fillStyle = "white";
+    }
+
     for (const cell of this.cells) {
       ctx.beginPath();
       ctx.arc(cell.x * L, cell.y * L, L * this.radius, 0, Math.PI * 2);
