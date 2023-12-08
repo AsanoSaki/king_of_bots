@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card" style="margin-top: 20px;">
       <div class="card-header">
-        <h3 style="display: inline-block;">Login</h3>
+        <div style="display: inline-block; font-size: 3vh;">Login</div>
         <div style="float: right; height: 2.5rem; line-height: 2.5rem;">
           <span>还没有账号？</span>
           <router-link :to="{ name: 'user_account_register' }" style="text-decoration: none;">
@@ -15,8 +15,8 @@
         <div class="row justify-content-md-center">
           <div class="col-md-5">
             <div class="card" style="margin: 6rem auto; box-shadow: 5px 5px 20px #aaa;">
-              <div class="card-header text-center">
-                <h1>用户登录</h1>
+              <div class="card-header text-center" style="font-size: 4vh;">
+                用户登录
               </div>
               <div class="card-body">
                 <div class="row justify-content-md-center">

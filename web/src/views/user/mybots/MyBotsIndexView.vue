@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="card text-bg-secondary" style="margin-top: 20px;">
-      <div class="card-header">
-        <h3>My Bots</h3>
+      <div class="card-header" style="font-size: 4vh; font-weight: bold; font-style: italic;">
+        My Bots
       </div>
       <div class="card-body" style="background-color: rgba(255, 255, 255, 0.5);">
         <div class="row">
