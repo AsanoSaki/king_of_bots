@@ -73,7 +73,7 @@ Maven 依赖：
  - `jakarta.websocket-client-api`：2.2.0-M1
  - `spring-boot-starter-webflux`：3.2.0
 
-#### 2.2.2 匹配系统微服务：`matchingsystem`
+#### 2.2.3 匹配系统微服务：`matchingsystem`
 
 主入口为 `matchingsystem/src/main/java/com.kob.matchingsystem` 下的 `MatchingSystemApplication`。
 

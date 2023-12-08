@@ -44,7 +44,6 @@ public class SecurityConfig {
                     auth.requestMatchers(new IpAddressMatcher("0:0:0:0:0:0:0:1", "/error")).permitAll();  // 0:0:0:0:0:0:0:1是localhost的IPv6版本
                     auth.requestMatchers(new IpAddressMatcher("0:0:0:0:0:0:0:1", "/user/account/login/")).permitAll();
                     auth.requestMatchers(new IpAddressMatcher("0:0:0:0:0:0:0:1", "/user/account/register/")).permitAll();
-                    auth.requestMatchers(new IpAddressMatcher("0:0:0:0:0:0:0:1", "/pk/getbotinfo/")).permitAll();
                     auth.requestMatchers(new IpAddressMatcher("127.0.0.1", "/pk/startgame/")).permitAll();
                     auth.requestMatchers(HttpMethod.OPTIONS).permitAll();
                     auth.anyRequest().authenticated();

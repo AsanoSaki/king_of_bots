@@ -1,6 +1,6 @@
 export default {
   state: {
-    status: "matching",  // 当前状态，matching表示正在匹配，playing表示正在对战
+    status: "local",  // 当前状态，local表示本地对战模式，matching表示正在匹配，playing表示正在对战
     socket: null,  // 前端和后端建立的链接
     opponent_username: "",  // 对手的用户名
     opponent_photo: "",  // 对手的头像

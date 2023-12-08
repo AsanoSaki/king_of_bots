@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import PKIndexView from "@/views/pk/PKIndexView";
+import LocalPKIndexView from "@/views/pk/LocalPKIndexView";
+import OnlinePKIndexView from "@/views/pk/OnlinePKIndexView";
 import RecordIndexView from "@/views/record/RecordIndexView";
 import RanklistIndexView from "@/views/ranklist/RanklistIndexView";
 import MyBotsIndexView from "@/views/user/mybots/MyBotsIndexView";
@@ -12,15 +13,17 @@ const routes = [
   {
     path: "/",
     name: "home",
-    redirect: "/pk/",  // 如果是根路径则重定向到对战页面
-    meta: {
-      requestAuth: true,
-    },
+    redirect: "/pk/local/",  // 如果是根路径则重定向到对战页面
   },
   {
-    path: "/pk/",
-    name: "pk_index",
-    component: PKIndexView,
+    path: "/pk/local/",
+    name: "pk_local_index",
+    component: LocalPKIndexView,
+  },
+  {
+    path: "/pk/online/",
+    name: "pk_online_index",
+    component: OnlinePKIndexView,
     meta: {
       requestAuth: true,
     },

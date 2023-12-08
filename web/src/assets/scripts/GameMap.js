@@ -20,7 +20,7 @@ export class GameMap extends AcGameObject {
       new Snake({ id: 1, color: "#F94848", r: 1, c: this.cols - 2 }, this),
     ];
 
-    this.store = store;
+    this.store = store;  // vuex中的全局变量
   }
 
   check_connectivity(g, sx, sy, tx, ty) {  // 用flood fill算法判断两名玩家是否连通
@@ -98,27 +98,44 @@ export class GameMap extends AcGameObject {
     this.ctx.canvas.focus();  // 使Canvas聚焦
 
     this.ctx.canvas.addEventListener("keydown", e => {
-      let d = -1;
-      if (e.key === "w") d = 0;
-      else if (e.key === "d") d = 1;
-      else if (e.key === "s") d = 2;
-      else if (e.key === "a") d = 3;
+      if (this.store.state.pk.status === "local") {  // 本地对战
+        const [snake0, snake1] = this.snakes;
 
-      if (d !== -1) {
-        this.store.state.pk.socket.send(JSON.stringify({
-          event: "move",
-          direction: d,
-        }));
+        if (e.key === "w") snake0.set_direction(0);
+        else if (e.key === "d") snake0.set_direction(1);
+        else if (e.key === "s") snake0.set_direction(2);
+        else if (e.key === "a") snake0.set_direction(3);
+        else if (e.key === "ArrowUp") snake1.set_direction(0);
+        else if (e.key === "ArrowRight") snake1.set_direction(1);
+        else if (e.key === "ArrowDown") snake1.set_direction(2);
+        else if (e.key === "ArrowLeft") snake1.set_direction(3);
+      } else {  // 匹配对战
+        let d = -1;
+
+        if (e.key === "w") d = 0;
+        else if (e.key === "d") d = 1;
+        else if (e.key === "s") d = 2;
+        else if (e.key === "a") d = 3;
+
+        if (d !== -1) {
+          this.store.state.pk.socket.send(JSON.stringify({
+            event: "move",
+            direction: d,
+          }));
+        }
       }
     });
   }
 
   start() {
-    // for (let i = 0; i < 10000; i++) {
-    //   if (this.create_walls())
-    //     break;
-    // }
-    this.create_walls_online();  // 在线生成地图
+    if (this.store.state.pk.status === "local") {
+      for (let i = 0; i < 10000; i++) {
+        if (this.create_walls())
+          break;
+      }
+    } else {
+      this.create_walls_online();  // 在线生成地图
+    }
     this.add_listening_events();
   }
 
